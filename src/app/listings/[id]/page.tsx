@@ -1,5 +1,4 @@
 import Listing from "@/app/(models)/Listing";
-import Image from 'next/image'
 
 export default async function property ({ params }: any)  {
     const getPropertyById = async (id: string) => {
