@@ -1,4 +1,5 @@
 import Listing from "@/app/(models)/Listing";
+import Image from 'next/image'
 
 export default async function property ({ params }: any)  {
     const getPropertyById = async (id: string) => {
@@ -15,7 +16,9 @@ export default async function property ({ params }: any)  {
     const property: Listing = resdata.data
     return (
         <div className="h-screen flex flex-col items-center">
-        <div className="w-full h-1/2"> Images </div>
+        <div className="w-full h-1/2">
+            <img className="object-cover h-full" src={property.images[0]} alt={"Image"}></img>
+        </div>
             <div className="grid sm: grid-cols-1 md:grid-cols-3 gap-x-2 w-screen">
                 <div className="col-span-2">
                     <div className="flex flex-row justify-between">
