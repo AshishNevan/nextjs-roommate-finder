@@ -14,13 +14,19 @@ export default async function property({ params }: { params: { id: string } }) {
     return (
       <div className="h-screen flex flex-col items-center">
         <div className="w-full h-1/2">
-          <Image
-            className="object-cover h-full"
-            src={property.images[0]}
-            alt={"Image"}
-            width={500}
-            height={500}
-          />
+          {property.images && property.images[0] ? (
+            <Image
+              className="object-fill h-40 w-full"
+              src={property.images[0]}
+              alt=""
+              width={500}
+              height={500}
+            />
+          ) : (
+            <div className="h-full flex justify-center items-center">
+              No Image Available
+            </div>
+          )}
         </div>
         <div className="grid sm: grid-cols-1 md:grid-cols-4 gap-x-2 mx-2">
           <div className="col-span-3 py-4">
