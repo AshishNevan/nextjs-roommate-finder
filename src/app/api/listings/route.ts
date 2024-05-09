@@ -1,36 +1,42 @@
-import Listing from "@/app/(models)/Listing"
-import {NextRequest, NextResponse} from "next/server";
-import clientPromise from "@/utils/database";
-import { ObjectId } from "mongodb";
+import Listing from "@/app/(models)/Listing";
+import { NextRequest, NextResponse } from "next/server";
+import {
+  ListingData,
+  getAllListings,
+  createListing,
+} from "@/app/lib/listingActions";
 // External Dependencies
 
 // Global Config
 export async function GET(req: NextRequest) {
-        try {
-            const client = await clientPromise;
-            const db = client.db("roomate-finder");
-            const listings = (await db
-                .collection("Listings")
-                .find({})
-                .toArray()) as unknown as Listing[];
-            return NextResponse.json({message: "success", data: listings}, {status: 200})
-        } catch (e) {
-            return NextResponse.json({message: "failed to get listings"}, {status: 500})
-        }
+  const { data, error }: ListingData = await getAllListings();
+  if (error) {
+    return NextResponse.json(
+      { message: "Error", error: error },
+      { status: 500 }
+    );
+  } else {
+    return NextResponse.json(
+      { message: "success", data: data },
+      { status: 200 }
+    );
+  }
 }
 // GET
 export async function POST(req: NextRequest) {
-    try {
-        const client = await clientPromise;
-        const db = client.db("roomate-finder");
-        const body = await req.json();
-        const newListing = body.formData as Listing;
-        const result = await db.collection("Listings").insertOne(newListing);
-        return NextResponse.json({ message: "success" }, { status: 201 });
-    }
-    catch (error) {
-        return NextResponse.json({ message: "Error", error: error }, { status: 500 });
-    }
+  const newListing = req.body as unknown as Listing;
+  const { data, error }: ListingData = await createListing(newListing);
+  if (error) {
+    return NextResponse.json(
+      { message: "Error", error: error },
+      { status: 500 }
+    );
+  } else {
+    return NextResponse.json(
+      { message: "success", data: data },
+      { status: 200 }
+    );
+  }
 }
 // POST
 
