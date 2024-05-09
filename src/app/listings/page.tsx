@@ -5,7 +5,7 @@ export default async function listings() {
   const { data, error }: ListingData = await getAllListings();
 
   if (error || !data) {
-    return <div>No listings found</div>;
+    return <div>No listings found {error}</div>;
   } else {
     return (
       <div className="h-full mx-auto py-4 w-full">
