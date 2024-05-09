@@ -49,7 +49,7 @@ export async function signup(state: FormState, formData) {
     console.log("id", data)
     // TODO:
     // 4. Create user session
-    await createSession(data)
+    // await createSession(data)
     // 5. Redirect user
     redirect(`/users/${data}`)
 }
