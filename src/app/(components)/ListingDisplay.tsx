@@ -8,7 +8,7 @@ const ListingDisplay = async ({ listings }: { listings: Listing[] }) => {
     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-2 m-4">
       {listings &&
         listings.map((listing: Listing) => (
-          <div key={`${listing.id}`}>
+          <div key={`${listing._id}`}>
             <ListingCard listing={listing} />
           </div>
         ))}

@@ -8,7 +8,7 @@ export default async function property({ params }: { params: { id: string } }) {
   }
   const { data, error }: ListingData = await getListingById(params.id);
   if (error) {
-    throw new Error("listing not found");
+    throw new Error("listing not found: " + error);
   } else {
     const property: Listing = data![0];
     return (

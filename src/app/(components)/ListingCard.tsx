@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import Listing from "../(models)/Listing";
 
-const ListingCard = ({ listing }: any) => {
+const ListingCard = ({ listing }: { listing: Listing }) => {
   return (
     <Link href={`/listings/${listing._id}`} style={{ display: "contents" }}>
       <div className="flex flex-col rounded-md shadow-lg p-3 m-2 bg-gray-200 h-52">
