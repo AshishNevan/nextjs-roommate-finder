@@ -1,5 +1,6 @@
 import Listing from "@/app/(models)/Listing";
 import { ListingData, getListingById } from "@/app/lib/listingActions";
+import Image from "next/image";
 
 export default async function property({ params }: { params: { id: string } }) {
   if (!params.id) {
@@ -13,11 +14,13 @@ export default async function property({ params }: { params: { id: string } }) {
     return (
       <div className="h-screen flex flex-col items-center">
         <div className="w-full h-1/2">
-          <img
+          <Image
             className="object-cover h-full"
             src={property.images[0]}
             alt={"Image"}
-          ></img>
+            width={500}
+            height={500}
+          />
         </div>
         <div className="grid sm: grid-cols-1 md:grid-cols-4 gap-x-2 mx-2">
           <div className="col-span-3 py-4">
