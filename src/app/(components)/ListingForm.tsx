@@ -39,7 +39,7 @@ const ListingForm = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        const res = await fetch("/api/Listings", {
+        const res = await fetch("/api/listings", {
             method: "POST",
             body: JSON.stringify({formData}),
             // "content-type": "application/json",
