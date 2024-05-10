@@ -5,16 +5,16 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
+export async function login(formData: { email: string; password: string }) {
   const supabase = createClient();
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+    email: formData.email as string,
+    password: formData.password as string,
   };
-
+  console.log("supabase login", data);
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
@@ -25,19 +25,20 @@ export async function login(formData: FormData) {
   redirect("/");
 }
 
-export async function signup(formData: FormData) {
+export async function signup(formData: { email: string; password: string }) {
   const supabase = createClient();
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
+    email: formData.email as string,
+    password: formData.password as string,
   };
-
+  console.log("supabase signup", data);
   const { error } = await supabase.auth.signUp(data);
 
   if (error) {
+    console.log(error);
     redirect("/error");
   }
 

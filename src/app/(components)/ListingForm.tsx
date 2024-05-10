@@ -4,6 +4,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Listing from "@/app/(models)/Listing";
 import { createClient } from "@/utils/supabase/client";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+
 const ListingForm = () => {
   const router = useRouter();
   const handleChange = (e: { target: { value: any; name: any } }) => {
@@ -70,15 +75,15 @@ const ListingForm = () => {
   );
   const [formData, setFormData] = useState<Listing>(startingListingForm);
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center m-4">
       <form
-        className="flex flex-col w-1/2"
+        className="flex flex-col w-1/2 gap-2"
         method="post"
         onSubmit={handleSubmit}
       >
         <h2 className="text-center">Create your listing</h2>
-        <label>Title</label>
-        <input
+        <Label htmlFor="title">Title</Label>
+        <Input
           id="title"
           name="title"
           type="text"
@@ -86,8 +91,8 @@ const ListingForm = () => {
           required={true}
           value={formData.title}
         />
-        <label>Description</label>
-        <textarea
+        <Label htmlFor="description">Description</Label>
+        <Textarea
           id="description"
           name="description"
           onChange={handleChange}
@@ -95,8 +100,8 @@ const ListingForm = () => {
           value={formData.description}
           rows={3}
         />
-        <label>Price</label>
-        <input
+        <Label htmlFor="price">Price</Label>
+        <Input
           id="price"
           name="price"
           type="number"
@@ -104,8 +109,8 @@ const ListingForm = () => {
           required={true}
           value={formData.price}
         />
-        <label>Bedrooms</label>
-        <input
+        <Label htmlFor="bedrooms">Bedrooms</Label>
+        <Input
           id="bedrooms"
           name="bedrooms"
           type="number"
@@ -113,8 +118,8 @@ const ListingForm = () => {
           required={true}
           value={formData.bedrooms}
         />
-        <label>Bathrooms</label>
-        <input
+        <Label htmlFor="bathrooms">Bathrooms</Label>
+        <Input
           id="bathrooms"
           name="bathrooms"
           type="number"
@@ -122,8 +127,8 @@ const ListingForm = () => {
           required={true}
           value={formData.bathrooms}
         />
-        <label>Area</label>
-        <input
+        <Label htmlFor="area">Area</Label>
+        <Input
           id="area"
           name="area"
           type="number"
@@ -131,10 +136,9 @@ const ListingForm = () => {
           required={true}
           value={formData.area}
         />
-        <label>Location</label>
-        <div className="grid grid-cols-5">
-          <label>Address</label>
-          <input
+        <div className="grid grid-cols-5 gap-4">
+          <Label htmlFor="address">Address</Label>
+          <Input
             id="address"
             name="address"
             type="text"
@@ -143,8 +147,8 @@ const ListingForm = () => {
             value={formData.location.address}
             className="col-span-4"
           />
-          <label>City</label>
-          <input
+          <Label htmlFor="city">City</Label>
+          <Input
             id="city"
             name="city"
             type="text"
@@ -153,8 +157,8 @@ const ListingForm = () => {
             value={formData.location.city}
             className="col-span-4"
           />
-          <label>State</label>
-          <input
+          <Label htmlFor="state">State</Label>
+          <Input
             id="state"
             name="state"
             type="text"
@@ -163,8 +167,8 @@ const ListingForm = () => {
             value={formData.location.state}
             className="col-span-4"
           />
-          <label>Zip code</label>
-          <input
+          <Label htmlFor="zip_code">Zip code</Label>
+          <Input
             id="zip_code"
             name="zip_code"
             type="text"
@@ -174,7 +178,7 @@ const ListingForm = () => {
             className="col-span-4"
           />
         </div>
-        <input type="submit" value="Submit" className="btn" />
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );

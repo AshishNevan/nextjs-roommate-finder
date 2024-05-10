@@ -1,28 +1,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import Listing from "../(models)/Listing";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const ListingCard = ({ listing }: { listing: Listing }) => {
   return (
     <Link href={`/listings/${listing._id}`} style={{ display: "contents" }}>
-      <div className="flex flex-col rounded-md shadow-lg p-3 m-2 bg-gray-200 h-52">
-        <h4 className="text-black">{listing.location.address}</h4>
-        <div className="w-full border border-gray-900 h-48">
+      <Card className="">
+        <CardHeader>
+          <CardTitle>{listing.location.address}</CardTitle>
+        </CardHeader>
+        <CardContent>
           {listing.images && listing.images[0] ? (
-            <Image
-              className="object-fill h-40 w-full"
-              src={listing.images[0]}
-              alt=""
-              width={500}
-              height={500}
-            />
+            <AspectRatio ratio={9 / 3} className="bg-muted">
+              <Image
+                className="rounded-md object-cover"
+                src={`${listing.images[0]}`}
+                alt=""
+                fill
+              />
+            </AspectRatio>
           ) : (
-            <div className="h-full flex justify-center items-center">
-              No Image Available
-            </div>
+            <AspectRatio ratio={9 / 3} className="bg-muted">
+              <div className="h-full flex justify-center items-center">
+                Image Unavailable
+              </div>
+            </AspectRatio>
           )}
-        </div>
-      </div>
+        </CardContent>
+        <CardFooter></CardFooter>
+      </Card>
     </Link>
   );
 };
