@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
 }
 // GET
 export async function POST(req: NextRequest) {
-  const newListing = req.body as unknown as Listing;
+  const newListing = await req.json().then((data) => data?.formData as Listing);
   const { data, error }: ListingData = await createListing(newListing);
   if (error) {
     return NextResponse.json(
