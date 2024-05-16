@@ -9,8 +9,8 @@ export default async function createListing() {
     redirect("/login");
   }
   return (
-    <div>
+    <main>
       <ListingForm />
-    </div>
+    </main>
   );
 }

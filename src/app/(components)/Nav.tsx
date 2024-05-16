@@ -1,101 +1,146 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Menu, Search, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipProvider,
-  TooltipContent,
-} from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { revalidatePath } from "next/cache";
 
 const Nav = async () => {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
-  // console.log(data);
+
+  const logout = async () => {
+    // TODO: fix logout
+    await supabase.auth.signOut();
+    revalidatePath("/");
+    return;
+  };
   return (
-    <nav className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800">
-      <div className="flex items-center space-x-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              className="w-6 h-6"
+    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-lg font-semibold md:text-base"
+        >
+          <Home className="h-6 w-6" />
+          <span className="sr-only">Roommate Finder</span>
+        </Link>
+        <Link
+          href="/listings"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Browse
+        </Link>
+        <Link
+          href="/createListing"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Create
+        </Link>
+      </nav>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left">
+          <nav className="grid gap-6 text-lg font-medium">
+            <Link
+              href="#"
+              className="flex items-center gap-2 text-lg font-semibold"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <div className="flex flex-col space-y-2">
-              <DropdownMenuSeparator />
-              <Link href={"/"}>
-                <Button variant={"link"}>Home</Button>
-              </Link>
-              <DropdownMenuSeparator />
-              <Link href={"/listings"}>
-                <Button variant={"link"}>View Listings</Button>
-              </Link>
-              <DropdownMenuSeparator />
-              <Link href={"/createListing"}>
-                <Button variant={"link"}>Create Listing</Button>
-              </Link>
-              <DropdownMenuSeparator />
-            </div>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Avatar>
-          <AvatarImage src="https://example.com/user.png" alt="User Profile" />
-        </Avatar>
-      </div>
-      <div className="flex items-center space-x-4">
+              <Home className="h-6 w-6" />
+              <span className="sr-only">Roommate Finder</span>
+            </Link>
+            <Link
+              href="#"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Browse
+            </Link>
+            <Link
+              href="#"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Create
+            </Link>
+          </nav>
+        </SheetContent>
+      </Sheet>
+      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+        <form className="ml-auto flex-1 sm:flex-initial">
+          <div className="relative">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            {/*TODO:implement search*/}
+            <Input
+              type="search"
+              placeholder="Search areas"
+              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+            />
+          </div>
+        </form>
         {data.user?.email ? (
-          <Link href={`/users/${data.user.id}`}>
-            <Avatar>
-              <AvatarImage
-                src="https://example.com/user.png"
-                alt="User Profile"
-              />
-              <AvatarFallback>
-                {data.user?.email?.charAt(0).toLocaleUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <Avatar>
+                  <AvatarImage
+                    src="https://example.com/user.png"
+                    alt="User Profile"
+                  />
+                  <AvatarFallback>
+                    {data.user?.email?.charAt(0).toLocaleUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Link href={`/users/${data.user.id}`}>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
-          <Link href="/login">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Avatar>
-                    <AvatarImage
-                      src="https://example.com/user.png"
-                      alt="User Profile"
-                    />
-                    <AvatarFallback>{"?"}</AvatarFallback>
-                  </Avatar>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Login</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="secondary" size="icon" className="rounded-full">
+                <Avatar>
+                  <AvatarImage
+                    src="https://example.com/user.png"
+                    alt="User Profile"
+                  />
+                  <AvatarFallback>{"?"}</AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Anonymous User</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <Link href="/login">
+                <DropdownMenuItem>Login / Signup</DropdownMenuItem>
+              </Link>
+              <DropdownMenuItem>Support</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
-    </nav>
+    </header>
   );
 };
 export default Nav;
