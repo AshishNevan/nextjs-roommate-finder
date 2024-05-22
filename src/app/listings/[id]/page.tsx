@@ -17,9 +17,8 @@ export default async function property({ params }: { params: { id: string } }) {
     throw new Error("No ID provided");
   }
   const { data, error }: ListingData = await getListingById(params.id);
-  if (error) {
-    throw new Error("listing not found: " + error);
-  } else {
+  if (error) return <main>{`listing not found: ${error}`}</main>;
+  else {
     const property: Listing = data![0];
     return (
       <div className="h-screen flex flex-col items-center">

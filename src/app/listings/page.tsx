@@ -5,7 +5,7 @@ export default async function listings() {
   const { data, error }: ListingData = await getAllListings();
 
   if (error || !data) {
-    return <main>No listings found</main>;
+    return <main>{`No listings found error: ${error}`}</main>;
   } else {
     return (
       <main>
