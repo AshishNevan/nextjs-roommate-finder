@@ -17,12 +17,11 @@ export default async function property({ params }: { params: { id: string } }) {
     throw new Error("No ID provided");
   }
   const { data, error }: ListingData = await getListingById(params.id);
-  if (error) {
-    throw new Error("listing not found: " + error);
-  } else {
+  if (error) return <main>{`listing not found: ${error}`}</main>;
+  else {
     const property: Listing = data![0];
     return (
-      <div className="h-screen flex flex-col items-center">
+      <main className="h-screen flex flex-col items-center">
         {property.images.length > 0 ? (
           <Carousel className="w-full max-w-md">
             <CarouselContent>
@@ -95,7 +94,7 @@ export default async function property({ params }: { params: { id: string } }) {
             </Card>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 }

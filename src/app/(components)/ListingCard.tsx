@@ -13,7 +13,7 @@ import {
 
 const ListingCard = ({ listing }: { listing: Listing }) => {
   return (
-    <Link href={`/listings/${listing._id}`} style={{ display: "contents" }}>
+    <Link href={`/listings/${listing.id}`} style={{ display: "contents" }}>
       <Card className="">
         <CardHeader>
           <CardTitle>{listing.location.address}</CardTitle>
