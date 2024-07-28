@@ -54,7 +54,7 @@ export default async function property({ params }: { params: { id: string } }) {
               <p>Image Unavailable</p>
             </div>
           )}
-          <div className="min-w-[95%] grid m:grid-cols-1 lg:grid-cols-6 gap-2 mx-4 border border-solid">
+          <div className="min-w-[95%] grid m:grid-cols-1 lg:grid-cols-6 gap-2 mx-4">
             <div className="col-span-full lg:col-span-4 py-4">
               <div className="flex flex-row justify-between">
                 <div className="w-3/4">
