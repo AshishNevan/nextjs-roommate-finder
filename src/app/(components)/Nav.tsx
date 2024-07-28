@@ -13,18 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { revalidatePath } from "next/cache";
+import LogoutButton from "./LogoutButton";
 
 const Nav = async () => {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
-
-  const logout = async () => {
-    // TODO: fix logout
-    await supabase.auth.signOut();
-    revalidatePath("/");
-    return;
-  };
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -113,7 +106,9 @@ const Nav = async () => {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
               </Link>
               <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogoutButton />
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
