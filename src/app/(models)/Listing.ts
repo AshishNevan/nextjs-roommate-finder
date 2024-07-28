@@ -19,7 +19,7 @@ export default class Listing {
     },
     public images: string[],
     public user_id: string,
-    public _id?: ObjectId
+    public id?: ObjectId
   ) {}
 }
 // Class Implementation
