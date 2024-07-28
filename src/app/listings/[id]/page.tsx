@@ -54,8 +54,8 @@ export default async function property({ params }: { params: { id: string } }) {
               <p>Image Unavailable</p>
             </div>
           )}
-          <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-2 mx-2">
-            <div className="col-span-2 py-4">
+          <div className="min-w-[95%] grid m:grid-cols-1 lg:grid-cols-6 gap-2 mx-4 border border-solid">
+            <div className="col-span-full lg:col-span-4 py-4">
               <div className="flex flex-row justify-between">
                 <div className="w-3/4">
                   <h1>{property.location.address}</h1>
@@ -72,7 +72,7 @@ export default async function property({ params }: { params: { id: string } }) {
               <h2>{property.title}</h2>
               <p>Description: {property.description}</p>
             </div>
-            <div className="col-span-1 flex flex-col m-2 gap-2">
+            <div className="s:col-span-full lg:col-span-2 flex flex-col my-2 gap-2 mx-auto">
               <Card className="h-32 my-auto justify-items-center">
                 <div className="flex flex-col justify-evenly h-full">
                   <CardTitle className="text-center">Interested?</CardTitle>
