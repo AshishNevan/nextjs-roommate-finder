@@ -13,12 +13,12 @@ export async function GET(req: NextRequest) {
   if (error) {
     return NextResponse.json(
       { message: "Error", error: error },
-      { status: 500 }
+      { status: 500 },
     );
   } else {
     return NextResponse.json(
       { message: "success", data: data },
-      { status: 200 }
+      { status: 200 },
     );
   }
 }
@@ -29,12 +29,12 @@ export async function POST(req: NextRequest) {
   if (error) {
     return NextResponse.json(
       { message: "Error", error: error },
-      { status: 500 }
+      { status: 500 },
     );
   } else {
     return NextResponse.json(
       { message: "success", data: data },
-      { status: 200 }
+      { status: 200 },
     );
   }
 }

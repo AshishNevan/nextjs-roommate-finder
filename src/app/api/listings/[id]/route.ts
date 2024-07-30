@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ListingData, getListingById } from "@/app/lib/listingActions";
+import {
+  ListingData,
+  getListingById,
+  matchListing,
+} from "@/app/lib/listingActions";
 // External Dependencies
 
 // Global Config
@@ -7,19 +11,19 @@ export async function GET(req: NextRequest, { params }: any) {
   if (!params.id) {
     return NextResponse.json(
       { message: "Error", error: "No ID provided" },
-      { status: 400 }
+      { status: 400 },
     );
   }
   const { data, error }: ListingData = await getListingById(params.id);
   if (error) {
     return NextResponse.json(
       { message: "Error", error: error },
-      { status: 500 }
+      { status: 500 },
     );
   } else {
     return NextResponse.json(
       { message: "success", data: data },
-      { status: 200 }
+      { status: 200 },
     );
   }
 }

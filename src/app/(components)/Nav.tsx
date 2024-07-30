@@ -14,10 +14,10 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import LogoutButton from "./LogoutButton";
+import { getCurrentUser } from "../lib/userActions";
 
 const Nav = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
+  const { data, error } = await getCurrentUser();
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -84,7 +84,7 @@ const Nav = async () => {
             />
           </div>
         </form>
-        {data.user?.email ? (
+        {!error && data.user?.email ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
