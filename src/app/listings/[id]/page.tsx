@@ -1,4 +1,5 @@
 import Listing from "@/app/(models)/Listing";
+import Link from "next/link";
 import { ListingData, getListingById } from "@/app/lib/listingActions";
 import Image from "next/image";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/carousel";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import MatchButton from "@/app/(components)/MatchButton";
 
 export default async function property({ params }: { params: { id: string } }) {
   if (!params.id) {
@@ -77,7 +79,7 @@ export default async function property({ params }: { params: { id: string } }) {
                 <div className="flex flex-col justify-evenly h-full">
                   <CardTitle className="text-center">Interested?</CardTitle>
                   <CardContent className="mx-auto">
-                    <Button>Apply to be a roommate</Button>
+                    <MatchButton listingid={property.id} />
                   </CardContent>
                 </div>
               </Card>

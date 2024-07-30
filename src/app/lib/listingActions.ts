@@ -15,7 +15,7 @@ export const getAllListings = async (): Promise<ListingData> => {
 };
 
 export const createListing = async (
-  newListing: Listing
+  newListing: Listing,
 ): Promise<ListingData> => {
   try {
     console.log("pre", newListing);
