@@ -1,5 +1,5 @@
 import clientPromise from "@/utils/database";
-import Listing from "../(models)/Listing";
+import Listing from "@/models/Listing";
 import { ObjectId } from "mongodb";
 import { createClient } from "@/utils/supabase/server";
 

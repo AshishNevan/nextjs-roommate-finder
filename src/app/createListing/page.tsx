@@ -1,4 +1,4 @@
-import ListingForm from "@/app/(components)/ListingForm";
+import ListingForm from "@/components/ListingForm";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 

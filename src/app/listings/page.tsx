@@ -1,4 +1,4 @@
-import ListingDisplay from "@/app/(components)/ListingDisplay";
+import ListingDisplay from "@/components/ListingDisplay";
 import { getAllListings, ListingData } from "@/app/lib/listingActions";
 
 export default async function listings() {

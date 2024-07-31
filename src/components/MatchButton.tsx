@@ -15,7 +15,7 @@ const MatchButton = (listingid: any) => {
       body: JSON.stringify({ listingid, data }),
     });
     if (!res.ok) {
-      console.log("failed to create a match");
+      console.log("failed to create a match")
       alert("Failed to create a match");
     } else {
       alert("Match was created");

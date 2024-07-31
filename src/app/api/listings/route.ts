@@ -1,4 +1,4 @@
-import Listing from "@/app/(models)/Listing";
+import Listing from "@/models/Listing";
 import { NextRequest, NextResponse } from "next/server";
 import {
   ListingData,

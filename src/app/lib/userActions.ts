@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { ObjectId } from "mongodb";
-import User from "../(models)/User";
+import User from "@/models/User";
 
 export const getCurrentUser = async (): Promise<{ data: any; error: any }> => {
   try {

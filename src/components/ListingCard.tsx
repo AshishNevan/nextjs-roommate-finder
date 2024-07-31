@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Listing from "../(models)/Listing";
+import Listing from "@/models/Listing";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import {
   Card,

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Listing from "@/app/(models)/Listing";
+import Listing from "@/models/Listing";
 import { createClient } from "@/utils/supabase/client";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";

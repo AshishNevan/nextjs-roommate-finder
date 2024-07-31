@@ -1,7 +1,7 @@
-import Listing from "@/app/(models)/Listing";
-import Link from "next/link";
+import MatchButton from "@/components/MatchButton";
+import Listing from "@/models/Listing";
 import { ListingData, getListingById } from "@/app/lib/listingActions";
-import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
   Carousel,
@@ -10,9 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Button } from "@/components/ui/button";
-import MatchButton from "@/app/(components)/MatchButton";
+import Image from "next/image";
 
 export default async function property({ params }: { params: { id: string } }) {
   if (!params.id) {
