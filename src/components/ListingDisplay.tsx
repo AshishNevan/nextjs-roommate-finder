@@ -1,5 +1,5 @@
-import ListingCard from "@/app/(components)/ListingCard";
-import Listing from "@/app/(models)/Listing";
+import ListingCard from "@/components/ListingCard";
+import Listing from "@/models/Listing";
 
 const ListingDisplay = async ({ listings }: { listings: Listing[] }) => {
   return (

@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { createClient } from "@/utils/supabase/server";
-import { Menu, Search, Home } from "lucide-react";
+import { getCurrentUser } from "@/app/lib/userActions";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,12 +11,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Home, Menu, Search } from "lucide-react";
+import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 
 const Nav = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
+  const { data, error } = await getCurrentUser();
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -40,6 +39,14 @@ const Nav = async () => {
         >
           Create
         </Link>
+        {data && (
+          <Link
+            href={`/matches/${data.user.id}`}
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Matches
+          </Link>
+        )}
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -51,24 +58,32 @@ const Nav = async () => {
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
-              href="#"
+              href="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
               <Home className="h-6 w-6" />
               <span className="sr-only">Roommate Finder</span>
             </Link>
             <Link
-              href="#"
+              href="/listings"
               className="text-muted-foreground hover:text-foreground"
             >
               Browse
             </Link>
             <Link
-              href="#"
+              href="/createListing"
               className="text-muted-foreground hover:text-foreground"
             >
               Create
             </Link>
+            {data && (
+              <Link
+                href={`/matches/${data.user.id}`}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                Matches
+              </Link>
+            )}
           </nav>
         </SheetContent>
       </Sheet>
@@ -84,7 +99,7 @@ const Nav = async () => {
             />
           </div>
         </form>
-        {data.user?.email ? (
+        {!error && data.user?.email ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">

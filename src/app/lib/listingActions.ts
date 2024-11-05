@@ -1,5 +1,5 @@
 import clientPromise from "@/utils/database";
-import Listing from "../(models)/Listing";
+import Listing from "@/models/Listing";
 import { ObjectId } from "mongodb";
 import { createClient } from "@/utils/supabase/server";
 
@@ -15,7 +15,7 @@ export const getAllListings = async (): Promise<ListingData> => {
 };
 
 export const createListing = async (
-  newListing: Listing
+  newListing: Listing,
 ): Promise<ListingData> => {
   try {
     console.log("pre", newListing);
